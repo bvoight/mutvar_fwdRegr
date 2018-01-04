@@ -44,14 +44,11 @@ wc raw_data/ben_data_7mer_bayesian_test_training_AFR_10
   24579  147462 1879666 ben_data_7mer_bayesian_test_training_AFR_10
 ````
 
-this matches (expected # of contexts is (4^7 * 3)/2 = 24576
+This matches (expected # of contexts is (4^7 * 3)/2 = 24576
+- (+1 header line: the header)
+- (+2 header line: which chromosomes selected for training/testing)
 
-(+1 header line: the header)
-
-(+2 header line: which chromosomes selected for training/testing)
-
-
-# Now, run script to process all substitution classes
+### Now, run script to process all substitution classes
 
 ````
 usage: %> rate_processor.pl [AC|AG|AT|CA|CG|CT] [CpGflag: 0|1|2] ben_data_7mer_bayesian_test_training_AFR_10 ratefiles
