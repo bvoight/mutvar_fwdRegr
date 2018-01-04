@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-$sig_th = 0.01;
+$sig_th = 0.001;
 
 if (scalar(@ARGV) == 5) {
     $CTmode = shift(@ARGV);
