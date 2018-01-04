@@ -291,7 +291,8 @@ R --vanilla <output_allmodels.R --args 00_CT/tryit_4way ratefiles/nonCpG_rates_C
   	    00_CT/nCpG_C-T_modelsum_test.txt
 
 ## CpG
-######NOTE: for this substitution class (C-A), the best model was "all first + 2 way via feature selection" (tryit_2way)
+######NOTE: for this substitution class (C-A), the best model was 
+	    "all first + 2 way via feature selection" (tryit_2way)
 R --vanilla <output_allmodels.R --args 01_CA/tryit_2way ratefiles/CpG_rates_C-A_all_cov_vf.txt \
   	    01_CA/CpG_C-A_modelsum_all.txt
 R --vanilla <output_allmodels.R --args 01_CA/tryit_2way ratefiles/CpG_rates_C-A_train_cov_vf.txt \
