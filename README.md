@@ -51,7 +51,8 @@ This matches (expected # of contexts is (4^7 * 3)/2 = 24576
 ### Now, run script to process all substitution classes
 
 ````
-usage: %> rate_processor.pl [AC|AG|AT|CA|CG|CT] [CpGflag: 0|1|2] ben_data_7mer_bayesian_test_training_AFR_10 ratefiles
+usage: %> rate_processor.pl [AC|AG|AT|CA|CG|CT] [CpGflag: 0|1|2] 
+       ben_data_7mer_bayesian_test_training_AFR_10 ratefiles
 ````
 
 ````
