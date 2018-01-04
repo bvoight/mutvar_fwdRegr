@@ -1,6 +1,7 @@
 #################
 # mutvar_fwdRegr
-This repo contains the forward Regression framework used to model substitution probabilities for 7-mer sequence context model, as described in Aggarwala and Voight (2015). 
+This repo contains the forward Regression framework used to model substitution probabilities for 7-mer sequence context model,
+ as described in Aggarwala and Voight (2015). 
 
 ############
 #Objectives 
@@ -29,5 +30,17 @@ these are determined in part by the sequence context
 5. outputting "directional consistency" across different substitution classes
 6. output predicted values for models (example being C-T in CpG context)
 
-###
-#1. Data Processing, Creation of input files from raw substitution probabilty tables
+######################
+#1. Data Processing
+
+On the RAW data file:
+
+raw_data/ben_data_7mer_bayesian_test_training_AFR_10
+
+This file contains a set of substitution probabilities:
+- for each type of substitution class
+- for each 7-mer sequence context
+- either for all chromosomes (autosome_rate), even chromosomes (training) and odd chromosomes (testing).
+- estimated using the AFR continental group, excluding admixed samples, described in Aggarwala and Voight (2015). 
+
+
