@@ -61,6 +61,7 @@ arg 2: the CpG Flag (set 0 if desire AC|AG|AT; set =1 if desire CA|CG|CT -ve CpG
 arg 3: the substitution probability table
 arg 4: the directory to output the summary results files
 ````
+
 ````
 ### A to C/G/T substitutions [CpG = FALSE]
 ./rate_processor.pl AC 0 raw_data/ben_data_7mer_bayesian_test_training_AFR_10 ratefiles
@@ -76,4 +77,26 @@ arg 4: the directory to output the summary results files
 ./rate_processor.pl CA 2 raw_data/ben_data_7mer_bayesian_test_training_AFR_10 ratefiles
 ./rate_processor.pl CG 2 raw_data/ben_data_7mer_bayesian_test_training_AFR_10 ratefiles
 ./rate_processor.pl CT 2 raw_data/ben_data_7mer_bayesian_test_training_AFR_10 ratefiles
+````
+
+# Next, make the input files for R  
+````
+usage: %>mk_nonCpG_covfile [A-G|C-T] ratefilesdir
+usage: %>mk_CpG_covfile.pl [C-T|C-A|C-G] ratefilesdir
+
+arg 1: The substitution class of interest: A-C, A-G, A-T, C-A, C-T, C-G
+arg 2: the directory to output the summary results files.
+````
+
+````
+./mk_nonCpG_covfile.pl A-C ratefiles
+./mk_nonCpG_covfile.pl A-G ratefiles
+./mk_nonCpG_covfile.pl A-T ratefiles
+./mk_nonCpG_covfile.pl C-A ratefiles
+./mk_nonCpG_covfile.pl C-T ratefiles
+./mk_nonCpG_covfile.pl C-G ratefiles
+
+./mk_CpG_covfile.pl C-A ratefiles
+./mk_CpG_covfile.pl C-G ratefiles
+./mk_CpG_covfile.pl C-T ratefiles
 ````

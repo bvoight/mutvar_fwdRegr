@@ -19,7 +19,7 @@ if (scalar(@ARGV) == 2) {
     $seq = shift(@ARGV);
     $ratefiledir = shift(@ARGV);
 } else {
-    print "usage: %>mk_$ratefiledir/CpG_covfile [C-T|C-A|C-G]\n";
+    print "usage: %>mk_CpG_covfile.pl [C-T|C-A|C-G] ratefilesdir\n";
     exit();
 }
 
