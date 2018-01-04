@@ -2,6 +2,11 @@
 This repo contains the forward Regression framework used to model substitution probabilities for 7-mer sequence context model,
  as described in Aggarwala and Voight (2015). 
 
+Programs last tested: R (v3.3.2), Perl (v5.10.1)
+R libraries: DAAG (1.20), lattice (0.20-34), leaps (2.9), latticeExtra (0.6-26), RColorBrewer (1.1-2), grid (3.3.2)
+
+This may still be compatable with updated versions of these packages - but I have not tested with them!
+
 ### Objectives 
 
 Explaining variability in substitution model (CpG/nonCpG) contexts via forward regression analysis
