@@ -28,3 +28,6 @@ these are determined in part by the sequence context
 4. "Decoding" the sequence annotation (binary 0/1 encoding to A/C/G/T nucleotides)
 5. outputting "directional consistency" across different substitution classes
 6. output predicted values for models (example being C-T in CpG context)
+
+###
+#1. Data Processing, Creation of input files from raw substitution probabilty tables
