@@ -182,7 +182,7 @@ This script performs the series of feature selection steps in turn, e.g. 0 inter
 
 This uses the *training* rate files to build the model out. 
 
-This script also maintains the "hierarchy of constraint": when adding increasingly complex interactions (i.e., 3-way), if the lower order terms are not present (2-way, 1-way), it will add those, increase the degree of freedom, and performs the F-test in the context with those additional parameters.
+This script also maintains the "hierarchy of constraint": when adding increasingly complex interactions (i.e., 3-way), if the lower order terms are not present (2-way, 1-way), it will add those, increase the degree of freedom, and performs the F-test with the increased number of additional parameters (and higher df's)
 
 2. calls `auto_CVsummary.pl`, which performs the cross validation and summary analysis automatically for all models developed.
 
@@ -207,15 +207,15 @@ Here, 8-fold CV is performed.
 
 File output produced: (X and Y are placeholders for nucleotides, e.g. C-A or C-T or A-C, etc.)
 
-*.Rout: raw output from the given model_picker.R run
-CVsel_*way_X-Y.CVout: Text file for the summary output results for cross validation (training phase) and results for holdout (testing phase) including ALL features
+     *.Rout: raw output from the given model_picker.R run
+     CVsel_*way_X-Y.CVout: Text file for the summary output results for cross validation (training phase) and results for holdout (testing phase) including ALL features
 
-tryit_*way: the list of selected feature for the given interaction model (1way, 2way, 3way, or 4way). Format similar to files found in `modelfile` directory
-tryit_*way_X-Y.CVout: Text file for the summary output results for cross validation (training phase) and results for holdout (testing phase) including the subset of *selected* features
+     tryit_*way: the list of selected feature for the given interaction model (1way, 2way, 3way, or 4way). Format similar to files found in `modelfile` directory
+     tryit_*way_X-Y.CVout: Text file for the summary output results for cross validation (training phase) and results for holdout (testing phase) including the subset of *selected* features
 
-modellist_X-Y: the list of all models that will be tested in cross validation
+     modellist_X-Y: the list of all models that will be tested in cross validation
 
-### CONFIRMED! reproduces to this point at least for: C-T CpGs, A-T, and C-T non-CpG
+### CONFIRMED! reproduces to this point at least for: C-T CpGs, A-T, and C-T non-CpG.
 
 ### 3. Making summary tables for features selected (e.g. Suppl. Table 7a, 7b)
 
