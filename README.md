@@ -51,9 +51,18 @@ This matches (expected # of contexts is (4^7 * 3)/2 = 24576
 ### Now, run script to process all substitution classes
 
 ````
-usage: %> rate_processor.pl [AC|AG|AT|CA|CG|CT] [CpGflag: 0|1|2] \       
-       ben_data_7mer_bayesian_test_training_AFR_10 ratefiles
+usage: %> rate_processor.pl [AC|AG|AT|CA|CG|CT] 
+       	  		    [0|1|2]       
+       			    raw_data/ben_data_7mer_bayesian_test_training_AFR_10 
+			    ratefiles
+
+arg 1: The substitution class of interest
+arg 2: the CpG Flag (set 0 if AC,AG,AT; set =1 if CA, CG, CT not in a CpG, set =2 if CA,CG,CT in CpG context)
+arg 3: the substitution probability table
+arg 4: the directory to output the summary results files
 ````
+
+
 
 ````
 ### A to C/G/T substitutions [CpG = FALSE]
