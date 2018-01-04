@@ -205,6 +205,8 @@ Here, 8-fold CV is performed.
 ./auto_finalmodel_CV.pl 0 A-T 00_AT ratefiles modelfiles
 ````
 
+Output are placed in the specified output directory (e.e., 00_AC, 00_AG, etc.). 
+
 File output produced: (X and Y are placeholders for nucleotides, e.g. C-A or C-T or A-C, etc.)
 
 *.Rout: raw output from the given model_picker.R run
@@ -217,55 +219,107 @@ tryit_*way_X-Y.CVout: Text file for the summary output results for cross validat
 
 modellist_X-Y: the list of all models that will be tested in cross validation
 
-### CONFIRMED! reproduces to this point at least for: C-T CpGs, A-T, and C-T non-CpG.
-
 ### 3. Making summary tables for features selected (e.g. Suppl. Table 7a, 7b)
 
-Make summary tables for features selected (Table 7a, 7b)
+````
+usage: %> R --vanilla <output_allmodels.R --args paramfile datafile outfile
+
+arg 1 [paramfile]: a lists of features from the model (ie., "tryit_4way")
+arg 2 [datafile]: the rate file to incorporate (i.e., ratefiles/*_all_cov_vf.txt)
+arg 3 [outfile]: the path of the output file that is generated. 
+````
+
+Format for the output file is:
+
+````
+PARAM BETA SE TVAL PVAL
+(Intercept) 0.119725606572481 0.00133737269238609 89.5229932943157 0
+p1_t1 0.00299726083766459 0.00135540478491911 2.21134001518481 0.0272734178496301
+p1_t2 -0.000284399681618097 0.00108345427233726 -0.262493479309082 0.793003586043526
+...
+
+col 1: the parameter/feature (encoded)
+col 2: the output effect size (BETA) from the regression
+col 3: the statistic for the final regression including this 
+       feature (in the context of all provided featuers)
+col 4: the associated p-value for the statstic from the final 
+       regression including this feature (in the context of all provided features)
+````
 
 ````
 ## nonCpG
-R --vanilla <output_allmodels.R --args 00_AC/tryit_4way ratefiles/nonCpG_rates_A-C_all_cov_vf.txt 00_AC/nCpG_A-C_modelsum_all.txt
-R --vanilla <output_allmodels.R --args 00_AC/tryit_4way ratefiles/nonCpG_rates_A-C_train_cov_vf.txt 00_AC/nCpG_A-C_modelsum_train.txt
-R --vanilla <output_allmodels.R --args 00_AC/tryit_4way ratefiles/nonCpG_rates_A-C_test_cov_vf.txt 00_AC/nCpG_A-C_modelsum_test.txt
+R --vanilla <output_allmodels.R --args 00_AC/tryit_4way ratefiles/nonCpG_rates_A-C_all_cov_vf.txt \
+  	    00_AC/nCpG_A-C_modelsum_all.txt
+R --vanilla <output_allmodels.R --args 00_AC/tryit_4way ratefiles/nonCpG_rates_A-C_train_cov_vf.txt \
+  	    00_AC/nCpG_A-C_modelsum_train.txt
+R --vanilla <output_allmodels.R --args 00_AC/tryit_4way ratefiles/nonCpG_rates_A-C_test_cov_vf.txt \
+  	    00_AC/nCpG_A-C_modelsum_test.txt
 
-R --vanilla <output_allmodels.R --args 00_AG/tryit_4way ratefiles/nonCpG_rates_A-G_all_cov_vf.txt 00_AG/nCpG_A-G_modelsum_all.txt
-R --vanilla <output_allmodels.R --args 00_AG/tryit_4way ratefiles/nonCpG_rates_A-G_train_cov_vf.txt 00_AG/nCpG_A-G_modelsum_train.txt
-R --vanilla <output_allmodels.R --args 00_AG/tryit_4way ratefiles/nonCpG_rates_A-G_test_cov_vf.txt 00_AG/nCpG_A-G_modelsum_test.txt
+R --vanilla <output_allmodels.R --args 00_AG/tryit_4way ratefiles/nonCpG_rates_A-G_all_cov_vf.txt \
+  	    00_AG/nCpG_A-G_modelsum_all.txt
+R --vanilla <output_allmodels.R --args 00_AG/tryit_4way ratefiles/nonCpG_rates_A-G_train_cov_vf.txt \
+  	    00_AG/nCpG_A-G_modelsum_train.txt
+R --vanilla <output_allmodels.R --args 00_AG/tryit_4way ratefiles/nonCpG_rates_A-G_test_cov_vf.txt \
+  	    00_AG/nCpG_A-G_modelsum_test.txt
 
-R --vanilla <output_allmodels.R --args 00_AT/tryit_4way ratefiles/nonCpG_rates_A-T_all_cov_vf.txt 00_AT/nCpG_A-T_modelsum_all.txt
-R --vanilla <output_allmodels.R --args 00_AT/tryit_4way ratefiles/nonCpG_rates_A-T_train_cov_vf.txt 00_AT/nCpG_A-T_modelsum_train.txt
-R --vanilla <output_allmodels.R --args 00_AT/tryit_4way ratefiles/nonCpG_rates_A-T_test_cov_vf.txt 00_AT/nCpG_A-T_modelsum_test.txt
+R --vanilla <output_allmodels.R --args 00_AT/tryit_4way ratefiles/nonCpG_rates_A-T_all_cov_vf.txt \
+  	    00_AT/nCpG_A-T_modelsum_all.txt
+R --vanilla <output_allmodels.R --args 00_AT/tryit_4way ratefiles/nonCpG_rates_A-T_train_cov_vf.txt \
+  	    00_AT/nCpG_A-T_modelsum_train.txt
+R --vanilla <output_allmodels.R --args 00_AT/tryit_4way ratefiles/nonCpG_rates_A-T_test_cov_vf.txt \
+  	    00_AT/nCpG_A-T_modelsum_test.txt
 
-R --vanilla <output_allmodels.R --args 00_CA/tryit_4way ratefiles/nonCpG_rates_C-A_all_cov_vf.txt 00_CA/nCpG_C-A_modelsum_all.txt
-R --vanilla <output_allmodels.R --args 00_CA/tryit_4way ratefiles/nonCpG_rates_C-A_train_cov_vf.txt 00_CA/nCpG_C-A_modelsum_train.txt
-R --vanilla <output_allmodels.R --args 00_CA/tryit_4way ratefiles/nonCpG_rates_C-A_test_cov_vf.txt 00_CA/nCpG_C-A_modelsum_test.txt
+R --vanilla <output_allmodels.R --args 00_CA/tryit_4way ratefiles/nonCpG_rates_C-A_all_cov_vf.txt \
+  	    00_CA/nCpG_C-A_modelsum_all.txt
+R --vanilla <output_allmodels.R --args 00_CA/tryit_4way ratefiles/nonCpG_rates_C-A_train_cov_vf.txt \
+  	    00_CA/nCpG_C-A_modelsum_train.txt
+R --vanilla <output_allmodels.R --args 00_CA/tryit_4way ratefiles/nonCpG_rates_C-A_test_cov_vf.txt \
+  	    00_CA/nCpG_C-A_modelsum_test.txt
 
-R --vanilla <output_allmodels.R --args 00_CG/tryit_4way ratefiles/nonCpG_rates_C-G_all_cov_vf.txt 00_CG/nCpG_C-G_modelsum_all.txt
-R --vanilla <output_allmodels.R --args 00_CG/tryit_4way ratefiles/nonCpG_rates_C-G_train_cov_vf.txt 00_CG/nCpG_C-G_modelsum_train.txt
-R --vanilla <output_allmodels.R --args 00_CG/tryit_4way ratefiles/nonCpG_rates_C-G_test_cov_vf.txt 00_CG/nCpG_C-G_modelsum_test.txt
+R --vanilla <output_allmodels.R --args 00_CG/tryit_4way ratefiles/nonCpG_rates_C-G_all_cov_vf.txt \
+  	    00_CG/nCpG_C-G_modelsum_all.txt
+R --vanilla <output_allmodels.R --args 00_CG/tryit_4way ratefiles/nonCpG_rates_C-G_train_cov_vf.txt \
+  	    00_CG/nCpG_C-G_modelsum_train.txt
+R --vanilla <output_allmodels.R --args 00_CG/tryit_4way ratefiles/nonCpG_rates_C-G_test_cov_vf.txt \
+  	    00_CG/nCpG_C-G_modelsum_test.txt
 
-R --vanilla <output_allmodels.R --args 00_CT/tryit_4way ratefiles/nonCpG_rates_C-T_all_cov_vf.txt 00_CT/nCpG_C-T_modelsum_all.txt
-R --vanilla <output_allmodels.R --args 00_CT/tryit_4way ratefiles/nonCpG_rates_C-T_train_cov_vf.txt 00_CT/nCpG_C-T_modelsum_train.txt
-R --vanilla <output_allmodels.R --args 00_CT/tryit_4way ratefiles/nonCpG_rates_C-T_test_cov_vf.txt 00_CT/nCpG_C-T_modelsum_test.txt
+R --vanilla <output_allmodels.R --args 00_CT/tryit_4way ratefiles/nonCpG_rates_C-T_all_cov_vf.txt \
+  	    00_CT/nCpG_C-T_modelsum_all.txt
+R --vanilla <output_allmodels.R --args 00_CT/tryit_4way ratefiles/nonCpG_rates_C-T_train_cov_vf.txt \
+  	    00_CT/nCpG_C-T_modelsum_train.txt
+R --vanilla <output_allmodels.R --args 00_CT/tryit_4way ratefiles/nonCpG_rates_C-T_test_cov_vf.txt \
+  	    00_CT/nCpG_C-T_modelsum_test.txt
 
 ## CpG
 ######NOTE: for this substitution class (C-A), the best model was "all first + 2 way via feature selection" (tryit_2way)
-R --vanilla <output_allmodels.R --args 01_CA/tryit_2way ratefiles/CpG_rates_C-A_all_cov_vf.txt 01_CA/CpG_C-A_modelsum_all.txt
-R --vanilla <output_allmodels.R --args 01_CA/tryit_2way ratefiles/CpG_rates_C-A_train_cov_vf.txt 01_CA/CpG_C-A_modelsum_train.txt
-R --vanilla <output_allmodels.R --args 01_CA/tryit_2way ratefiles/CpG_rates_C-A_test_cov_vf.txt 01_CA/CpG_C-A_modelsum_test.txt
+R --vanilla <output_allmodels.R --args 01_CA/tryit_2way ratefiles/CpG_rates_C-A_all_cov_vf.txt \
+  	    01_CA/CpG_C-A_modelsum_all.txt
+R --vanilla <output_allmodels.R --args 01_CA/tryit_2way ratefiles/CpG_rates_C-A_train_cov_vf.txt \
+  	    01_CA/CpG_C-A_modelsum_train.txt
+R --vanilla <output_allmodels.R --args 01_CA/tryit_2way ratefiles/CpG_rates_C-A_test_cov_vf.txt \
+  	    01_CA/CpG_C-A_modelsum_test.txt
 
-R --vanilla <output_allmodels.R --args 01_CG/tryit_4way ratefiles/CpG_rates_C-G_all_cov_vf.txt 01_CG/CpG_C-G_modelsum_all.txt
-R --vanilla <output_allmodels.R --args 01_CG/tryit_4way ratefiles/CpG_rates_C-G_train_cov_vf.txt 01_CG/CpG_C-G_modelsum_train.txt
-R --vanilla <output_allmodels.R --args 01_CG/tryit_4way ratefiles/CpG_rates_C-G_test_cov_vf.txt 01_CG/CpG_C-G_modelsum_test.txt
+R --vanilla <output_allmodels.R --args 01_CG/tryit_4way ratefiles/CpG_rates_C-G_all_cov_vf.txt \
+  	    01_CG/CpG_C-G_modelsum_all.txt
+R --vanilla <output_allmodels.R --args 01_CG/tryit_4way ratefiles/CpG_rates_C-G_train_cov_vf.txt \
+  	    01_CG/CpG_C-G_modelsum_train.txt
+R --vanilla <output_allmodels.R --args 01_CG/tryit_4way ratefiles/CpG_rates_C-G_test_cov_vf.txt \
+  	    01_CG/CpG_C-G_modelsum_test.txt
 
-R --vanilla <output_allmodels.R --args 01_CT/tryit_4way ratefiles/CpG_rates_C-T_all_cov_vf.txt 01_CT/CpG_C-T_modelsum_all.txt
-R --vanilla <output_allmodels.R --args 01_CT/tryit_4way ratefiles/CpG_rates_C-T_train_cov_vf.txt 01_CT/CpG_C-T_modelsum_train.txt
-R --vanilla <output_allmodels.R --args 01_CT/tryit_4way ratefiles/CpG_rates_C-T_test_cov_vf.txt 01_CT/CpG_C-T_modelsum_test.txt
-
+R --vanilla <output_allmodels.R --args 01_CT/tryit_4way ratefiles/CpG_rates_C-T_all_cov_vf.txt \
+  	    01_CT/CpG_C-T_modelsum_all.txt
+R --vanilla <output_allmodels.R --args 01_CT/tryit_4way ratefiles/CpG_rates_C-T_train_cov_vf.txt \
+  	    01_CT/CpG_C-T_modelsum_train.txt
+R --vanilla <output_allmodels.R --args 01_CT/tryit_4way ratefiles/CpG_rates_C-T_test_cov_vf.txt \
+  	    01_CT/CpG_C-T_modelsum_test.txt
 ````
 
+### CONFIRMED! reproduces to this point at least for: C-T CpGs, A-T, and C-T non-CpG.
+
 ### 4. "Decoding" the sequence annotation (binary 0/1 encoding to A/C/G/T nucleotides)
+
+This script takes output from the `output_allmodel.R` script (i.e., `*modelsum_*.txt`, above) reads the `PARAM` column, and appends a new column with interprets the sequence context (given the previous coding listed above):
+
 
 ````
 ./R_param_decoder.pl <00_AC/nCpG_A-C_modelsum_all.txt >00_AC/nCpG_A-C_modelsum_all_bpseq.txt
@@ -288,7 +342,7 @@ R --vanilla <output_allmodels.R --args 01_CT/tryit_4way ratefiles/CpG_rates_C-T_
 ./R_param_decoder.pl <01_CG/CpG_C-G_modelsum_train.txt >01_CG/CpG_C-G_modelsum_train_bpseq.txt
 ./R_param_decoder.pl <01_CT/CpG_C-T_modelsum_train.txt >01_CT/CpG_C-T_modelsum_train_bpseq.txt
 
-./R_param_decoder.pl <00_AC/nCpG_A-C_modelsum_train.txt >00_AC/nCpG_A-C_modelsum_test_bpseq.txt
+./R_param_decoder.pl <00_AC/nCpG_A-C_modelsum_test.txt >00_AC/nCpG_A-C_modelsum_test_bpseq.txt
 ./R_param_decoder.pl <00_AG/nCpG_A-G_modelsum_test.txt >00_AG/nCpG_A-G_modelsum_test_bpseq.txt
 ./R_param_decoder.pl <00_AT/nCpG_A-T_modelsum_test.txt >00_AT/nCpG_A-T_modelsum_test_bpseq.txt
 ./R_param_decoder.pl <00_CA/nCpG_C-A_modelsum_test.txt >00_CA/nCpG_C-A_modelsum_test_bpseq.txt
@@ -299,7 +353,7 @@ R --vanilla <output_allmodels.R --args 01_CT/tryit_4way ratefiles/CpG_rates_C-T_
 ./R_param_decoder.pl <01_CT/CpG_C-T_modelsum_test.txt >01_CT/CpG_C-T_modelsum_test_bpseq.txt
 ````
 
-# Merge files into master
+### Create a merged, master file
 
 ````
 #nCpG
@@ -348,33 +402,46 @@ R --vanilla <output_allmodels.R --args 01_CT/tryit_4way ratefiles/CpG_rates_C-T_
 
 ````
 #append directional consistency
-./mutsum_dirconst.pl <finaltables/nCpG_sorted_featuretable_all.txt >finaltables/nCpG_sorted_featuretable_all_wdir.txt
-./mutsum_dirconst.pl <finaltables/nCpG_sorted_featuretable_train.txt >finaltables/nCpG_sorted_featuretable_train_wdir.txt
-./mutsum_dirconst.pl <finaltables/nCpG_sorted_featuretable_test.txt >finaltables/nCpG_sorted_featuretable_test_wdir.txt
+./mutsum_dirconst.pl <finaltables/nCpG_sorted_featuretable_all.txt \
+		     >finaltables/nCpG_sorted_featuretable_all_wdir.txt
+./mutsum_dirconst.pl <finaltables/nCpG_sorted_featuretable_train.txt \
+		     >finaltables/nCpG_sorted_featuretable_train_wdir.txt
+./mutsum_dirconst.pl <finaltables/nCpG_sorted_featuretable_test.txt \
+		     >finaltables/nCpG_sorted_featuretable_test_wdir.txt
 
-./mutsum_dirconst.pl <finaltables/CpG_sorted_featuretable_all.txt >finaltables/CpG_sorted_featuretable_all_wdir.txt
-./mutsum_dirconst.pl <finaltables/CpG_sorted_featuretable_train.txt >finaltables/CpG_sorted_featuretable_train_wdir.txt
-./mutsum_dirconst.pl <finaltables/CpG_sorted_featuretable_test.txt >finaltables/CpG_sorted_featuretable_test_wdir.txt
+./mutsum_dirconst.pl <finaltables/CpG_sorted_featuretable_all.txt \
+		     >finaltables/CpG_sorted_featuretable_all_wdir.txt
+./mutsum_dirconst.pl <finaltables/CpG_sorted_featuretable_train.txt \
+		     >finaltables/CpG_sorted_featuretable_train_wdir.txt
+./mutsum_dirconst.pl <finaltables/CpG_sorted_featuretable_test.txt \
+		     >finaltables/CpG_sorted_featuretable_test_wdir.txt
 ````
 
 ````
 #extract final columns and report tables
-awk -F ' ' ' {print($1,$2,$3,$5,$7,$9,$11,$13,$15)} ' <finaltables/nCpG_sorted_featuretable_all_wdir.txt >finaltables/nCpG_featuretable_all_vf.txt
-awk -F ' ' ' {print($1,$2,$3,$5,$7,$9,$11,$13,$15)} ' <finaltables/nCpG_sorted_featuretable_all_wdir.txt >finaltables/nCpG_featuretable_train_vf.txt
-awk -F ' ' ' {print($1,$2,$3,$5,$7,$9,$11,$13,$15)} ' <finaltables/nCpG_sorted_featuretable_all_wdir.txt >finaltables/nCpG_featuretable_test_vf.txt
+awk -F ' ' ' {print($1,$2,$3,$5,$7,$9,$11,$13,$15)} ' <finaltables/nCpG_sorted_featuretable_all_wdir.txt \
+       >finaltables/nCpG_featuretable_all_vf.txt
+awk -F ' ' ' {print($1,$2,$3,$5,$7,$9,$11,$13,$15)} ' <finaltables/nCpG_sorted_featuretable_all_wdir.txt \
+    >finaltables/nCpG_featuretable_train_vf.txt
+awk -F ' ' ' {print($1,$2,$3,$5,$7,$9,$11,$13,$15)} ' <finaltables/nCpG_sorted_featuretable_all_wdir.txt \
+    >finaltables/nCpG_featuretable_test_vf.txt
 
-awk -F ' ' ' {print($1,$2,$3,$5,$7,$9)} ' <finaltables/CpG_sorted_featuretable_all_wdir.txt >finaltables/CpG_featuretable_all_vf.txt
-awk -F ' ' ' {print($1,$2,$3,$5,$7,$9)} ' <finaltables/CpG_sorted_featuretable_all_wdir.txt >finaltables/CpG_featuretable_train_vf.txt
-awk -F ' ' ' {print($1,$2,$3,$5,$7,$9)} ' <finaltables/CpG_sorted_featuretable_all_wdir.txt >finaltables/CpG_featuretable_test_vf.txt
+awk -F ' ' ' {print($1,$2,$3,$5,$7,$9)} ' <finaltables/CpG_sorted_featuretable_all_wdir.txt \
+    >finaltables/CpG_featuretable_all_vf.txt
+awk -F ' ' ' {print($1,$2,$3,$5,$7,$9)} ' <finaltables/CpG_sorted_featuretable_all_wdir.txt \
+    >finaltables/CpG_featuretable_train_vf.txt
+awk -F ' ' ' {print($1,$2,$3,$5,$7,$9)} ' <finaltables/CpG_sorted_featuretable_all_wdir.txt \
+    >finaltables/CpG_featuretable_test_vf.txt
 ````
 
 ### 6. output predicted values for models (example being C-T in CpG context)
 
-#Note that the way this is done, is really for the "_10" set of data (train = even chromosomes, test = odd chromosomes)
-
 #command line called:
 ````
-R --vanilla --args 01_CT/tryit_4way ratefiles/CpG_rates_C-T_train_cov_vf.txt ratefiles/CpG_rates_C-T_test_cov_vf.txt CpG_C-T_train_predictRates.txt
+R --vanilla --args 01_CT/tryit_4way 
+  	    	   ratefiles/CpG_rates_C-T_train_cov_vf.txt 
+		   ratefiles/CpG_rates_C-T_test_cov_vf.txt 
+		   CpG_C-T_train_predictRates.txt
 ````
 
 ````
