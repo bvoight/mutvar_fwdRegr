@@ -105,7 +105,7 @@ arg 2: the directory to output the summary results files.
 
 ### 2. Model / Feature Selection
 
-I've provide a listing of models given in the `modelfiles` directory
+I've provide a listing of models given in the `modelfiles` directory.
 
 If you looked at one of those files, e.g. 
 
@@ -134,7 +134,9 @@ p2_t1*p3_t1
 p6_t3*p7_t3
 ...
 ````
-The nomenclature I'm using here is
+To remind you of how the model is encoded: Each position (pX) is defined by three variables (tY), which then defined the nucleotide state for each position of the sequence context. You might ask "couldn't you code this with two variables?" Write it out - you'll see that the T state is "1 1" which is not quite what you want.
+
+The nomenclature I'm using here is:
 - pX - where X is 1,2,3 or 5,6,7 - this is the position of the nucletoide sequence context
 - tY - where Y is 1,2 or 3 - this denotes the "label" for the nucleotide at the position
 - pX_tY*pX_tY - this denotes an 'interaction' term of the given position/nucleotide. 
@@ -146,12 +148,13 @@ I've encoded this as (arbitarily) as:
 0 1 0 = G
 1 0 0 = T
 ````
-
 which means the "reference" nucleotide is "A", i.e., the change in probability of substitution which is estimated is change (C, G, or T) relative To A. 
 
 Note that you can have multiple interactions (here, 2way, but 3 or 4 way, for example). The modelfiles will give the list all of these possible interactions
 
-Finally, for specific models that fix CpG context, this means that p4 is always set to "G". in that case, you don't need to include this as a variable, and there will be no interaction terms possible with that position, i.e., the model space is 'reduced'. I have provided those listings for you.
+Finally, for specific models that fix CpG context, this means that p5 is always set to "G". in that case, you don't need to include this as a variable, and there will be no interaction terms possible with that position, i.e., the model space is 'reduced'. I have provided those listings for you.
+
+And obviously, p4 is excluded since that is the position of the polymorphic site, and in our case, we're stratifying each substitution classes of which there are 9: A-C, A-G, A-T, C-A, C-G, C-T (non-CpG), and C-A, C-G, C-T (CpG). 
 
 ````
 # Run model and feature building.
