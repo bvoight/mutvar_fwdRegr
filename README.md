@@ -57,7 +57,8 @@ usage: %> rate_processor.pl [AC|AG|AT|CA|CG|CT]
 			    ratefiles
 
 arg 1: The substitution class of interest
-arg 2: the CpG Flag (set 0 if desire AC|AG|AT; set =1 if desire CA|CG|CT -ve CpG context, set =2 if desire CA|CG|CT +ve CpG context)
+arg 2: the CpG Flag (set 0 if desire AC|AG|AT; set =1 if desire CA|CG|CT -ve CpG context, 
+       set =2 if desire CA|CG|CT +ve CpG context)
 arg 3: the substitution probability table
 arg 4: the directory to output the summary results files
 ````
