@@ -135,15 +135,17 @@ p6_t3*p7_t3
 ...
 ````
 The nomenclature I'm using here is
-pX - where X is 1,2,3 or 5,6,7 - this is the position of the nucletoide sequence context
-tY - where Y is 1,2 or 3 - this denotes the "label" for the nucleotide at the position
-pX_tY*pX_tY - this denotes an 'interaction' term of the given position/nucleotide. 
+- pX - where X is 1,2,3 or 5,6,7 - this is the position of the nucletoide sequence context
+- tY - where Y is 1,2 or 3 - this denotes the "label" for the nucleotide at the position
+- pX_tY*pX_tY - this denotes an 'interaction' term of the given position/nucleotide. 
 
 I've encoded this as (arbitarily) as:
+````
 0 0 0 = A
 0 0 1 = C
 0 1 0 = G
 1 0 0 = T
+````
 
 which means the "reference" nucleotide is "A", i.e., the change in probability of substitution which is estimated is change (C, G, or T) relative To A. 
 
