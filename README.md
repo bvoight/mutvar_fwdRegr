@@ -79,7 +79,7 @@ arg 4: the directory to output the summary results files
 ./rate_processor.pl CT 2 raw_data/ben_data_7mer_bayesian_test_training_AFR_10 ratefiles
 ````
 
-# Next, make the input files for R  
+### Next, make the input files for R  
 ````
 usage: %>mk_nonCpG_covfile [A-G|C-T] ratefilesdir
 usage: %>mk_CpG_covfile.pl [C-T|C-A|C-G] ratefilesdir
@@ -100,3 +100,69 @@ arg 2: the directory to output the summary results files.
 ./mk_CpG_covfile.pl C-G ratefiles
 ./mk_CpG_covfile.pl C-T ratefiles
 ````
+### CONFIRMED! reproduces to this point.
+
+
+### 2. Model / Feature Selection
+
+I've provide a listing of models given in the `modelfiles` directory
+
+If you looked at one of those files, e.g. 
+
+````
+head -n 20 modelfiles/CVsel_1_2wayALL
+
+p1_t1
+p1_t2
+p1_t3
+p2_t1
+p2_t2
+p2_t3
+p3_t1
+p3_t2
+p3_t3
+p5_t1
+p5_t2
+p5_t3
+p6_t1
+p6_t2
+p6_t3
+p7_t1
+p7_t2
+p7_t3
+p2_t1*p3_t1
+p6_t3*p7_t3
+...
+````
+The nomenclature I'm using here is
+pX - where X is 1,2,3 or 5,6,7 - this is the position of the nucletoide sequence context
+tY - where Y is 1,2 or 3 - this denotes the "label" for the nucleotide at the position
+pX_tY*pX_tY - this denotes an 'interaction' term of the given position/nucleotide. 
+
+I've encoded this as (arbitarily) as:
+0 0 0 = A
+0 0 1 = C
+0 1 0 = G
+1 0 0 = T
+
+which means the "reference" nucleotide is "A", i.e., the change in probability of substitution which is estimated is change (C, G, or T) relative To A. 
+
+Note that you can have multiple interactions (here, 2way, but 3 or 4 way, for example). The modelfiles will give the list all of these possible interactions
+
+Finally, for specific models that fix CpG context, this means that p4 is always set to "G". in that case, you don't need to include this as a variable, and there will be no interaction terms possible with that position, i.e., the model space is 'reduced'. I have provided those listings for you.
+
+````
+# Run model and feature building.
+./auto_finalmodel_CV.pl 2 C-A 01_CA ratefiles modelfiles
+./auto_finalmodel_CV.pl 2 C-G 01_CG ratefiles modelfiles
+./auto_finalmodel_CV.pl 2 C-T 01_CT ratefiles modelfiles
+
+./auto_finalmodel_CV.pl 1 C-A 00_CA ratefiles modelfiles
+./auto_finalmodel_CV.pl 1 C-G 00_CG ratefiles modelfiles
+./auto_finalmodel_CV.pl 1 C-T 00_CT ratefiles modelfiles
+
+./auto_finalmodel_CV.pl 0 A-C 00_AC ratefiles modelfiles
+./auto_finalmodel_CV.pl 0 A-G 00_AG ratefiles modelfiles
+./auto_finalmodel_CV.pl 0 A-T 00_AT ratefiles modelfiles
+````
+
