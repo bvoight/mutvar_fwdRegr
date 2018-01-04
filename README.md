@@ -29,7 +29,9 @@ ideally, the broad hypothesis is that variability in rates of polymorphism withi
 
 On the RAW data file:
 
-```` raw_data/ben_data_7mer_bayesian_test_training_AFR_10
+```` 
+raw_data/ben_data_7mer_bayesian_test_training_AFR_10
+````
 
 This file contains a set of substitution probabilities:
 - for each type of substitution class
@@ -37,8 +39,10 @@ This file contains a set of substitution probabilities:
 - either for all chromosomes (autosome_rate), even chromosomes (training) and odd chromosomes (testing).
 - estimated using the AFR continental group, excluding admixed samples, described in Aggarwala and Voight (2015). 
 
+````
 wc raw_data/ben_data_7mer_bayesian_test_training_AFR_10
   24579  147462 1879666 ben_data_7mer_bayesian_test_training_AFR_10
+````
 
 #this matches (expected # of contexts is (4^7 * 3)/2 = 24576
 #      (+1 header line: the header)
