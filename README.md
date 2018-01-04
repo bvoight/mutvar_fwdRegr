@@ -397,3 +397,4 @@ reg <- lm(form, data=tr);
 pred_tr <- cbind(as.character(tr$SEQ_REF), predict(reg,interval=c("prediction")));
 write.table(pred_tr[,1:2],file=outfile,quote=F,row.names=F, col.names=F)
 ````
+ 
